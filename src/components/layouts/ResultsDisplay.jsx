@@ -1,16 +1,54 @@
-// ResultsDisplay.jsx - with fix for undefined property error
+// ResultsDisplay.jsx - Updated with market data and social links
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, PiggyBank, Search, RefreshCw } from 'lucide-react';
+import { ArrowRight, PiggyBank, Search, RefreshCw, DollarSign, Layers, TrendingUp, PieChart, AlertCircle, Twitter, Globe } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
 import AnimatedLogo from '../AnimatedLogo';
 import AnimatedMetrics from '../AnimatedMetrics';
 import MetricItem from '../ui/MetricItem';
 import { FadeIn, SlideIn } from '../ui/AnimationWrappers';
 
+// Format large numbers with commas and abbreviate if needed
+const formatNumber = (num) => {
+  if (num === undefined || num === null) return '0';
+  
+  if (num >= 1000000000) {
+    return `$${(num / 1000000000).toFixed(2)}B`;
+  } else if (num >= 1000000) {
+    return `$${(num / 1000000).toFixed(2)}M`;
+  } else if (num >= 1000) {
+    return `$${(num / 1000).toFixed(2)}K`;
+  } else {
+    return `$${num.toFixed(2)}`;
+  }
+};
+
+// Format price with appropriate decimals based on value
+const formatPrice = (price) => {
+  if (price === undefined || price === null) return '$0.00';
+  
+  if (price < 0.0001) {
+    return `$${price.toFixed(8)}`;
+  } else if (price < 0.01) {
+    return `$${price.toFixed(6)}`;
+  } else if (price < 1) {
+    return `$${price.toFixed(4)}`;
+  } else {
+    return `$${price.toFixed(2)}`;
+  }
+};
+
 const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
   // Extract data from analysis result with safe fallbacks
   const {
+    token_info = { 
+      name: "Unknown Token", 
+      symbol: "???", 
+      price_usd: 0, 
+      market_cap: 0, 
+      fdv: 0, 
+      price_change_24h: 0 
+    },
     smart_contract_risk = { rating: 0, comment: "No data available", error: null },
     token_performance = { rating: 0, comment: "No data available", error: null },
     on_chain_metrics = { rating: 0, comment: "No data available", error: null },
@@ -19,6 +57,35 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
     confidence_score = 0,
     final_recommendation = "No recommendation available"
   } = result || {};
+
+  // Extract social links if available
+  const socialLinks = [];
+  
+  // Check if we have on_chain_data with links
+  if (result?.on_chain_metrics?.liquidity_metrics?.social_links) {
+    const links = result.on_chain_metrics.liquidity_metrics.social_links;
+    links.forEach(link => {
+      if (link.type === 'twitter') {
+        socialLinks.push({
+          type: 'twitter',
+          url: link.url,
+          icon: <Twitter className="w-4 h-4" />
+        });
+      }
+    });
+  }
+  
+  // Check for website links
+  if (result?.on_chain_metrics?.liquidity_metrics?.websites) {
+    const websites = result.on_chain_metrics.liquidity_metrics.websites;
+    websites.forEach(site => {
+      socialLinks.push({
+        type: 'website',
+        url: site.url,
+        icon: <Globe className="w-4 h-4" />
+      });
+    });
+  }
   
   return (
     <div className="bg-gray-900 min-h-screen py-12 px-4 relative">
@@ -39,8 +106,33 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
             <AnimatedLogo className="w-14 h-14" />
           </div>
           <div className="md:flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold text-white">Solana Token Analysis</h1>
-            <div className="flex space-x-3">
+            <div>
+              <h1 className="text-3xl font-bold text-white">{token_info.name} ({token_info.symbol})</h1>
+              <div className="flex items-center mt-2">
+                <span className="text-2xl font-medium text-white mr-2">
+                  {formatPrice(token_info.price_usd)}
+                </span>
+                <span className={`text-sm font-medium px-2 py-1 rounded ${token_info.price_change_24h >= 0 ? 'bg-green-900 text-green-300' : 'bg-red-900 text-red-300'}`}>
+                  {token_info.price_change_24h >= 0 ? '+' : ''}{token_info.price_change_24h?.toFixed(2)}%
+                </span>
+                {socialLinks.length > 0 && (
+                  <div className="ml-4 flex space-x-2">
+                    {socialLinks.map((link, index) => (
+                      <a 
+                        key={index}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white transition-colors"
+                      >
+                        {link.icon}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="flex space-x-3 mt-4 md:mt-0">
               <button
                 className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-2 rounded-lg text-sm flex items-center transition-colors"
                 onClick={onFollow}
@@ -58,6 +150,81 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
             </div>
           </div>
         </FadeIn>
+        
+        {/* Market Data Section */}
+        <SlideIn className="bg-gray-800 border border-gray-700 rounded-lg p-6 mb-6">
+          <h3 className="text-lg font-medium text-gray-300 mb-4 flex items-center">
+            <DollarSign className="w-5 h-5 mr-2 text-green-400" />
+            Market Analytics
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <div className="flex items-center mb-2">
+                <PieChart className="w-4 h-4 text-blue-400 mr-2" />
+                <span className="text-gray-400 text-sm">Market Cap</span>
+              </div>
+              <div className="text-xl font-medium text-white">
+                {formatNumber(token_info.market_cap)}
+              </div>
+            </div>
+            
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <div className="flex items-center mb-2">
+                <Layers className="w-4 h-4 text-purple-400 mr-2" />
+                <span className="text-gray-400 text-sm">Fully Diluted Valuation</span>
+              </div>
+              <div className="text-xl font-medium text-white">
+                {formatNumber(token_info.fdv)}
+              </div>
+            </div>
+            
+            <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <div className="flex items-center mb-2">
+                <TrendingUp className="w-4 h-4 text-green-400 mr-2" />
+                <span className="text-gray-400 text-sm">24h Change</span>
+              </div>
+              <div className={`text-xl font-medium ${token_info.price_change_24h >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                {token_info.price_change_24h >= 0 ? '+' : ''}{token_info.price_change_24h?.toFixed(2)}%
+              </div>
+            </div>
+          </div>
+          
+          {on_chain_metrics?.liquidity_metrics?.volume_24h && (
+            <div className="mt-4 bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <div className="flex items-center mb-2">
+                <AlertCircle className="w-4 h-4 text-yellow-400 mr-2" />
+                <span className="text-gray-400 text-sm">Additional Metrics</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {on_chain_metrics.liquidity_metrics.volume_24h && (
+                  <div>
+                    <span className="text-gray-400 text-sm">24h Volume</span>
+                    <div className="text-lg font-medium text-white">
+                      {formatNumber(on_chain_metrics.liquidity_metrics.volume_24h)}
+                    </div>
+                  </div>
+                )}
+                {on_chain_metrics.liquidity_metrics.liquidity_usd && (
+                  <div>
+                    <span className="text-gray-400 text-sm">Liquidity</span>
+                    <div className="text-lg font-medium text-white">
+                      {formatNumber(on_chain_metrics.liquidity_metrics.liquidity_usd)}
+                    </div>
+                  </div>
+                )}
+                {on_chain_metrics.liquidity_metrics.buy_sell_ratio && (
+                  <div>
+                    <span className="text-gray-400 text-sm">Buy/Sell Ratio</span>
+                    <div className="text-lg font-medium text-white">
+                      {on_chain_metrics.liquidity_metrics.buy_sell_ratio.toFixed(2)}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </SlideIn>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Main metrics */}
