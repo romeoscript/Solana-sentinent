@@ -23,19 +23,15 @@ const Hero = ({ startAnalysis }) => {
           <div className="flex items-center justify-center mb-8">
             <AnimatedLogo className="w-20 h-20 mb-4" />
           </div>
-          <motion.div
-            className="flex items-center justify-center space-x-2 mb-6"
-            animate={{ rotate: [0, 5, 0, -5, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
-          >
+          <div className="flex items-center justify-center space-x-2 mb-6">
             <Zap className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-xl font-semibold text-yellow-400 tracking-wider">SOLANA SENTINEL</h2>
+            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">SOLANA SENTINEL</h2>
             <Zap className="w-8 h-8 text-yellow-400" />
-          </motion.div>
+          </div>
         </FadeIn>
         
         <FadeIn delay={0.2}>
-          <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             AI-Powered <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Solana Token</span> Analysis
           </h1>
         </FadeIn>
