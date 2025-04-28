@@ -25,20 +25,20 @@ const Hero = ({ startAnalysis }) => {
           </div>
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Zap className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">SOLANA SENTINEL</h2>
+            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">TOKENVIGIL</h2>
             <Zap className="w-8 h-8 text-yellow-400" />
           </div>
         </FadeIn>
         
         <FadeIn delay={0.2}>
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            AI-Powered <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Solana Token</span> Analysis
+            MCP-Powered <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Solana Token</span> Intelligence
           </h1>
         </FadeIn>
         
         <FadeIn delay={0.4}>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Comprehensive on-chain data, security scanning, and sentiment analysis for Solana tokens
+            Harness the Model Context Protocol for deep, real-time Solana token insights—built for meme traders who want the edge.
           </p>
         </FadeIn>
         
@@ -50,7 +50,7 @@ const Hero = ({ startAnalysis }) => {
               whileTap={{ scale: 0.98 }}
               onClick={startAnalysis}
             >
-              <span className="mr-2">Analyze Solana Token</span>
+              <span className="mr-2">Analyze Solana Tokens with MCP</span>
               <ArrowRight className="w-5 h-5" />
             </motion.button>
           </div>
@@ -60,22 +60,29 @@ const Hero = ({ startAnalysis }) => {
       <FadeIn delay={0.8} className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
         <FeatureCard 
           icon={Wallet} 
-          title="On-Chain Analysis" 
-          description="Evaluate token metrics, holder activity, and transaction patterns" 
+          title="On-Chain Intelligence" 
+          description="Leverage MCP to surface token metrics, holder activity, and transaction flows—direct from the Solana blockchain." 
           delay={0.8}
         />
         <FeatureCard 
           icon={ShieldCheck} 
           title="SPL Token Security" 
-          description="Smart contract security analysis to detect vulnerabilities in Solana tokens" 
+          description="Automated smart contract scanning and vulnerability checks, powered by MCP's direct blockchain context." 
           delay={1}
         />
         <FeatureCard 
           icon={BarChart4} 
-          title="Market Metrics" 
-          description="Real-time token performance and social sentiment analysis" 
+          title="Market & Sentiment Metrics" 
+          description="Track real-time token performance and social sentiment, all contextualized through the Model Context Protocol." 
           delay={1.2}
         />
+      </FadeIn>
+
+      <FadeIn delay={1.4} className="mt-16 max-w-3xl mx-auto text-center">
+        <h3 className="text-2xl font-bold text-white mb-4">What is MCP?</h3>
+        <p className="text-gray-300">
+          The Model Context Protocol (MCP) lets advanced models interact natively with Solana, unlocking richer, more actionable data for traders. MCP-powered tools go beyond basic AI—delivering context-aware, blockchain-native analysis for the next generation of meme trading.
+        </p>
       </FadeIn>
     </div>
   );
