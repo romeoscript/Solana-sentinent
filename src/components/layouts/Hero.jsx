@@ -13,51 +13,51 @@ const Hero = ({ startAnalysis }) => {
       <AnimatedBackground />
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQ0MCIgaGVpZ2h0PSI3NjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IHgxPSIxMDAlIiB5MT0iMTAwJSIgeDI9IjAlIiB5Mj0iMCUiIGlkPSJhIj48c3RvcCBzdG9wLWNvbG9yPSIjMTIxRDMzIiBvZmZzZXQ9IjAlIi8+PHN0b3Agc3RvcC1jb2xvcj0iIzExMTgyNyIgb2Zmc2V0PSIxMDAlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHBhdGggZD0iTS01ODIuNjg3IDEyNS44M2MxNDQuNzY1LTI0Mi40MSA0MzcuMTc0LTMyMC4wMDEgNjc5LjU4NC0xNzUuMjM3bDY2NC4xNDQgMzk1LjU5YzI0Mi40MSAxNDQuNzY1IDMyMC4wMDEgNDM3LjE3NCAxNzUuMjM3IDY3OS41ODRsLTM5NS41OSA2NjQuMTQ1Yy0xNDQuNzY1IDI0Mi40MS00MzcuMTc0IDMyMC4wMDEtNjc5LjU4NCAxNzUuMjM3bC02NjQuMTQ1LTM5NS41OWMtMjQyLjQxLTE0NC43NjUtMzIwLjAwMS00MzcuMTc0LTE3NS4yMzctNjc5LjU4NGwzOTUuNTktNjY0LjE0NXoiIGZpbGw9InVybCgjYSkiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbC1vcGFjaXR5PSIuMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjgzLjgxMyAtMjMuNzEzKSIvPjwvc3ZnPg==')] bg-no-repeat bg-cover opacity-30"></div>
-        <Sparkles className="absolute right-1/4 top-1/4 text-blue-300 opacity-20 w-12 h-12" />
-        <Sparkles className="absolute left-1/3 bottom-1/3 text-blue-300 opacity-20 w-8 h-8" />
-        <TrendingUp className="absolute left-1/4 top-1/3 text-green-300 opacity-20 w-10 h-10" />
+        <Sparkles className="absolute right-1/4 top-1/4 text-blue-300 opacity-20 w-8 h-8 sm:w-12 sm:h-12" />
+        <Sparkles className="absolute left-1/3 bottom-1/3 text-blue-300 opacity-20 w-6 h-6 sm:w-8 sm:h-8" />
+        <TrendingUp className="absolute left-1/4 top-1/3 text-green-300 opacity-20 w-8 h-8 sm:w-10 sm:h-10" />
       </div>
       
-      <div className="max-w-5xl mx-auto text-center relative z-10">
+      <div className="max-w-5xl mx-auto text-center relative z-10 py-8 sm:py-12">
         <FadeIn>
-          <div className="flex items-center justify-center mb-8">
-            <AnimatedLogo className="w-20 h-20 mb-4" />
+          <div className="flex items-center justify-center mb-4 sm:mb-8">
+            <AnimatedLogo className="w-16 h-16 sm:w-20 sm:h-20 mb-4" />
           </div>
-          <div className="flex items-center justify-center space-x-2 mb-6">
-            <Zap className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">TOKENVIGIL</h2>
-            <Zap className="w-8 h-8 text-yellow-400" />
+          <div className="flex items-center justify-center space-x-2 mb-4 sm:mb-6">
+            <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400" />
+            <h2 className="text-3xl sm:text-5xl font-bold text-yellow-400 tracking-wider">TOKENVIGIL</h2>
+            <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400" />
           </div>
         </FadeIn>
         
         <FadeIn delay={0.2}>
-          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6">
             MCP-Powered <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">Solana Token</span> Intelligence
           </h1>
         </FadeIn>
         
         <FadeIn delay={0.4}>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
             Harness the Model Context Protocol for deep, real-time Solana token insights—built for meme traders who want the edge.
           </p>
         </FadeIn>
         
         <FadeIn delay={0.6}>
-          <div className="max-w-md mx-auto">
+          <div className="max-w-md mx-auto px-4">
             <motion.button
-              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-4 px-8 rounded-lg shadow-lg flex items-center justify-center"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-lg shadow-lg flex items-center justify-center text-sm sm:text-base"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 25px rgba(37, 99, 235, 0.4)" }}
               whileTap={{ scale: 0.98 }}
               onClick={startAnalysis}
             >
               <span className="mr-2">Analyze Solana Tokens with MCP</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </motion.button>
           </div>
         </FadeIn>
       </div>
       
-      <FadeIn delay={0.8} className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
+      <FadeIn delay={0.8} className="mt-8 sm:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl w-full px-4">
         <FeatureCard 
           icon={Wallet} 
           title="On-Chain Intelligence" 
@@ -78,9 +78,9 @@ const Hero = ({ startAnalysis }) => {
         />
       </FadeIn>
 
-      <FadeIn delay={1.4} className="mt-16 max-w-3xl mx-auto text-center">
-        <h3 className="text-2xl font-bold text-white mb-4">What is MCP?</h3>
-        <p className="text-gray-300">
+      <FadeIn delay={1.4} className="mt-8 sm:mt-16 max-w-3xl mx-auto text-center px-4">
+        <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">What is MCP?</h3>
+        <p className="text-base sm:text-lg text-gray-300">
           The Model Context Protocol (MCP) lets advanced models interact natively with Solana, unlocking richer, more actionable data for traders. MCP-powered tools go beyond basic AI—delivering context-aware, blockchain-native analysis for the next generation of meme trading.
         </p>
       </FadeIn>
