@@ -1,6 +1,6 @@
 // src/CryptoSentinel.jsx
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { AlertTriangle } from 'lucide-react';
 
 // Import layout components
@@ -18,7 +18,7 @@ import ApiService from '../services/ApiService';
 // Main App
 const CryptoSentinel = () => {
   const [view, setView] = useState('hero');
-  const [query, setQuery] = useState('');
+  const [_query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState('');
   const [analysisResult, setAnalysisResult] = useState(null);

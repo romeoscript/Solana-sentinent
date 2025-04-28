@@ -1,6 +1,5 @@
 // Hero.jsx
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Sparkles, TrendingUp, Zap, Wallet, ShieldCheck, BarChart4, ArrowRight, Copy, Check } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
 import AnimatedLogo from '../AnimatedLogo';
@@ -35,7 +34,7 @@ const Hero = ({ startAnalysis }) => {
           </div>
           <div className="flex items-center justify-center space-x-2 mb-6">
             <Zap className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">SOLANA SENTINEL</h2>
+            <h2 className="text-5xl font-bold text-yellow-400 tracking-wider">TokenVigil</h2>
             <Zap className="w-8 h-8 text-yellow-400" />
           </div>
         </FadeIn>

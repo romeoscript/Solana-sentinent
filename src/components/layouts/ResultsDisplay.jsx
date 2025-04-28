@@ -1,6 +1,5 @@
 // ResultsDisplay.jsx - Updated for the new result structure
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, PiggyBank, Search, RefreshCw, DollarSign, Layers, TrendingUp, PieChart, AlertCircle, Twitter, Globe, MessageCircle } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
 import AnimatedLogo from '../AnimatedLogo';
@@ -91,8 +90,7 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
     });
   }
   
-  // Extract any additional market data
-  const marketData = result?.market_summary || {};
+  
   
   // Check for liquidity and volume data that might be in on_chain_metrics
   let liquidityUsd = null;
