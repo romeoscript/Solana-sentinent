@@ -37,7 +37,7 @@ const formatPrice = (price) => {
   }
 };
 
-const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
+const ResultsDisplay = ({ result, goBack }) => {
   // Extract data from analysis result with safe fallbacks
   const {
     token_info = { 
@@ -149,7 +149,7 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
                 )}
               </div>
             </div>
-            <div className="flex space-x-3 mt-4 md:mt-0">
+            {/* <div className="flex space-x-3 mt-4 md:mt-0">
               <button
                 className="bg-gray-800 hover:bg-gray-700 text-gray-300 px-3 py-2 rounded-lg text-sm flex items-center transition-colors"
                 onClick={onFollow}
@@ -164,7 +164,7 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
                 <RefreshCw className="w-4 h-4 mr-2" />
                 New Analysis
               </button>
-            </div>
+            </div> */}
           </div>
         </FadeIn>
         
