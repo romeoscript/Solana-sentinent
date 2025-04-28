@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { AlertTriangle } from 'lucide-react';
-
+import { motion } from 'framer-motion'; // Correct way to import
 // Import layout components
 import Hero from '../components/layouts/Hero';
 import AnalysisForm from '../components/layouts/AnalysisForm';

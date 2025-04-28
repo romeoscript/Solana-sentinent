@@ -5,6 +5,7 @@ import AnimatedBackground from '../AnimatedBackground';
 import AnimatedLogo from '../AnimatedLogo';
 import FeatureCard from '../ui/FeatureCard';
 import { FadeIn } from '../ui/AnimationWrappers';
+import { motion } from 'framer-motion'; // Correct way to import
 
 const Hero = ({ startAnalysis }) => {
   const [copied, setCopied] = useState(false);
