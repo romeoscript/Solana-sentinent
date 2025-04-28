@@ -6,6 +6,7 @@ import AnimatedLogo from '../AnimatedLogo';
 import AnimatedMetrics from '../AnimatedMetrics';
 import MetricItem from '../ui/MetricItem';
 import { FadeIn, SlideIn } from '../ui/AnimationWrappers';
+import { motion } from 'framer-motion';
 
 // Format large numbers with commas and abbreviate if needed
 const formatNumber = (num) => {
