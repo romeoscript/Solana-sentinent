@@ -1,7 +1,7 @@
-// ResultsDisplay.jsx - Updated with market data and social links
+// ResultsDisplay.jsx - Updated for the new result structure
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, PiggyBank, Search, RefreshCw, DollarSign, Layers, TrendingUp, PieChart, AlertCircle, Twitter, Globe } from 'lucide-react';
+import { ArrowRight, PiggyBank, Search, RefreshCw, DollarSign, Layers, TrendingUp, PieChart, AlertCircle, Twitter, Globe, MessageCircle } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
 import AnimatedLogo from '../AnimatedLogo';
 import AnimatedMetrics from '../AnimatedMetrics';
@@ -55,36 +55,54 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
     social_sentiment = { rating: 0, comment: "No data available", error: null },
     risk_reward_ratio = 0,
     confidence_score = 0,
-    final_recommendation = "No recommendation available"
-  } = result || {};
+    final_recommendation = "No recommendation available",
+    socials = [],
+    website = ""
+  } = result?.result || result || {};
 
-  // Extract social links if available
+  // Format social links data
   const socialLinks = [];
   
-  // Check if we have on_chain_data with links
-  if (result?.on_chain_metrics?.liquidity_metrics?.social_links) {
-    const links = result.on_chain_metrics.liquidity_metrics.social_links;
-    links.forEach(link => {
+  // Check if we have socials array directly in the result
+  if (socials && Array.isArray(socials)) {
+    socials.forEach(link => {
       if (link.type === 'twitter') {
         socialLinks.push({
           type: 'twitter',
           url: link.url,
           icon: <Twitter className="w-4 h-4" />
         });
+      } else if (link.type === 'telegram') {
+        socialLinks.push({
+          type: 'telegram',
+          url: link.url,
+          icon: <MessageCircle className="w-4 h-4" />
+        });
       }
     });
   }
   
-  // Check for website links
-  if (result?.on_chain_metrics?.liquidity_metrics?.websites) {
-    const websites = result.on_chain_metrics.liquidity_metrics.websites;
-    websites.forEach(site => {
-      socialLinks.push({
-        type: 'website',
-        url: site.url,
-        icon: <Globe className="w-4 h-4" />
-      });
+  // Add website if available
+  if (website) {
+    socialLinks.push({
+      type: 'website',
+      url: website,
+      icon: <Globe className="w-4 h-4" />
     });
+  }
+  
+  // Extract any additional market data
+  const marketData = result?.market_summary || {};
+  
+  // Check for liquidity and volume data that might be in on_chain_metrics
+  let liquidityUsd = null;
+  let volume24h = null;
+  let buySellRatio = null;
+  
+  if (on_chain_metrics?.liquidity_metrics) {
+    liquidityUsd = on_chain_metrics.liquidity_metrics.liquidity_usd;
+    volume24h = on_chain_metrics.liquidity_metrics.volume_24h;
+    buySellRatio = on_chain_metrics.liquidity_metrics.buy_sell_ratio;
   }
   
   return (
@@ -124,6 +142,7 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-white transition-colors"
+                        title={link.type}
                       >
                         {link.icon}
                       </a>
@@ -190,34 +209,35 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
             </div>
           </div>
           
-          {on_chain_metrics?.liquidity_metrics?.volume_24h && (
+          {/* Additional metrics if available */}
+          {(liquidityUsd || volume24h || buySellRatio) && (
             <div className="mt-4 bg-gray-900 border border-gray-700 rounded-lg p-4">
               <div className="flex items-center mb-2">
                 <AlertCircle className="w-4 h-4 text-yellow-400 mr-2" />
                 <span className="text-gray-400 text-sm">Additional Metrics</span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {on_chain_metrics.liquidity_metrics.volume_24h && (
+                {volume24h && (
                   <div>
                     <span className="text-gray-400 text-sm">24h Volume</span>
                     <div className="text-lg font-medium text-white">
-                      {formatNumber(on_chain_metrics.liquidity_metrics.volume_24h)}
+                      {formatNumber(volume24h)}
                     </div>
                   </div>
                 )}
-                {on_chain_metrics.liquidity_metrics.liquidity_usd && (
+                {liquidityUsd && (
                   <div>
                     <span className="text-gray-400 text-sm">Liquidity</span>
                     <div className="text-lg font-medium text-white">
-                      {formatNumber(on_chain_metrics.liquidity_metrics.liquidity_usd)}
+                      {formatNumber(liquidityUsd)}
                     </div>
                   </div>
                 )}
-                {on_chain_metrics.liquidity_metrics.buy_sell_ratio && (
+                {buySellRatio && (
                   <div>
                     <span className="text-gray-400 text-sm">Buy/Sell Ratio</span>
                     <div className="text-lg font-medium text-white">
-                      {on_chain_metrics.liquidity_metrics.buy_sell_ratio.toFixed(2)}
+                      {buySellRatio.toFixed(2)}
                     </div>
                   </div>
                 )}
@@ -271,7 +291,7 @@ const ResultsDisplay = ({ result, onFollow, onReset, goBack }) => {
             
             {/* Add animated metrics visualization */}
             <div className="mt-6">
-              <AnimatedMetrics data={result} />
+              <AnimatedMetrics data={result?.result || result} />
             </div>
           </SlideIn>
           
